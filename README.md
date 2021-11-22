@@ -1,7 +1,7 @@
 # apigateway-rest CfHighlander component
 
 ## Build status
-![cftest workflow](https://github.com/theonestack/hl-component-sqs/actions/workflows/rspec.yaml/badge.svg)
+![cftest workflow](https://github.com/theonestack/hl-component-apigateway-rest/actions/workflows/rspec.yaml/badge.svg)
 ## Parameters
 
 | Name | Use | Default | Global | Type | Allowed Values |
