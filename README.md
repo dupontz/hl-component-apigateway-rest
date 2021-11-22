@@ -1,5 +1,4 @@
-# Rest Api Gateway CfHighlander component
-
+# apigateway-rest CfHighlander component
 ## Parameters
 
 | Name | Use | Default | Global | Type | Allowed Values |
@@ -18,7 +17,40 @@
 | RestApiId | RestApiId | true
 | RestApiStage | RestApiStage | true
 
-## Config Examples
+## Included Components
+<none>
 
-TODO
- 
+## Example Configuration
+### Highlander
+```
+  Component name: 'apigateway', template: 'apigateway-rest' do
+    parameter name: 'VPCId', value: root_domain
+    parameter name: 'EdgeCertificateArn', value: cfout('acmv2', 'CertificateArn')
+    parameter name: 'RegionalCertificateArn', value: cfout('acmv2', 'CertificateArn')
+  end
+```
+### API Gateway (Rest) Configuration
+```
+api_name: 'app1_api'
+
+```
+## Cfhighlander Setup
+
+install cfhighlander [gem](https://github.com/theonestack/cfhighlander)
+
+```bash
+gem install cfhighlander
+```
+
+or via docker
+
+```bash
+docker pull theonestack/cfhighlander
+```
+## Testing Components
+
+Running the tests
+
+```bash
+cfhighlander cftest efs-v2
+```
