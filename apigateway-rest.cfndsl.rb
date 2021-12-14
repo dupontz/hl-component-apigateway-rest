@@ -64,6 +64,8 @@ CloudFormation do
   header_parameters = external_parameters.fetch(:header_parameters, nil)
   endpoint_configuration = external_parameters.fetch(:endpoint_configuration, {})
 
+  api_path_prefix = external_parameters.fetch(:api_path_prefix, nil)
+
   api_body_file = external_parameters.fetch(:api_body_file, '')
   if File.exists?(api_body_file)
     api_body = File.read(api_body_file)
@@ -122,7 +124,7 @@ CloudFormation do
 
   ApiGateway_BasePathMapping(:BasePathMapping) {
     Condition(:HasDomainName)
-    BasePath 'd'
+    BasePath api_path_prefix unless api_path_prefix.nil?
     DomainName Ref(:CustomDomain)
     RestApiId Ref(:RestApi)
     Stage Ref(:RestApiStage)
