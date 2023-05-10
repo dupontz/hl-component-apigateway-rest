@@ -85,7 +85,7 @@ CloudFormation do
     Description FnSub("#{api_description}")
     ApiKeySourceType FnSub(api_key_source_type) unless api_key_source_type.nil?
     BinaryMediaTypes binary_media_types unless binary_media_types.nil?
-    Body api_body unless api_body.nil?
+    Body FnSub(api_body) unless api_body.nil?
     BodyS3Location({
       Bucket: FnSub(body_s3_location['bucket']),
       Key: FnSub(body_s3_location['key'])
