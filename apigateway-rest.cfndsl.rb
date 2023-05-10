@@ -67,7 +67,7 @@ CloudFormation do
   api_path_prefix = external_parameters.fetch(:api_path_prefix, nil)
 
   api_body_file = external_parameters.fetch(:api_body_file, '')
-  if File.exists?(api_body_file)
+  if File.exist?(api_body_file)
     api_body = File.read(api_body_file)
   else
     api_body = nil
