@@ -104,6 +104,18 @@ CloudFormation do
     Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-RestApiId")
   }
 
+  Output(:RestRegionalApiDomainName) {
+    Condition(:HasRegionalCertificateArn)
+    Value(FnGetAtt('RestApi','RegionalDomainName'))
+    Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-RestApiDomainName")
+  }
+
+  Output(:RestEdgeApiDomainName) {
+    Condition(:HasRegionalCertificateArn)
+    Value(FnGetAtt('RestApi','DistributionDomainName'))
+    Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-RestApiDomainName")
+  }
+
   ApiGateway_Deployment(:RestApiDeployment) {
     Description FnSub("#{api_description}")
     RestApiId Ref(:RestApi)
