@@ -35,7 +35,19 @@ CloudFormation do
     SecurityPolicy security_policy
     Tags default_tags
   }
-  
+
+  Output(:RestRegionalApiDomainName) {
+    Condition(:HasRegionalCertificateArn)
+    Value(FnGetAtt('CustomDomain','RegionalDomainName'))
+    Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-RestApiDomainName")
+  }
+
+  Output(:RestEdgeApiDomainName) {
+    Condition(:HasEdgeCertificateArn)
+    Value(FnGetAtt('CustomDomain','DistributionDomainName'))
+    Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-RestApiDomainName")
+  }
+
   Route53_RecordSet(:RegionalDNSRecord) {
     Condition(:HasRegionalCertificateArn)
     HostedZoneName FnSub("${EnvironmentName}.${DnsDomain}.")
@@ -102,18 +114,6 @@ CloudFormation do
   Output(:RestApiId) {
     Value(Ref(:RestApi))
     Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-RestApiId")
-  }
-
-  Output(:RestRegionalApiDomainName) {
-    Condition(:HasRegionalCertificateArn)
-    Value(FnGetAtt('RestApi','RegionalDomainName'))
-    Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-RestApiDomainName")
-  }
-
-  Output(:RestEdgeApiDomainName) {
-    Condition(:HasEdgeCertificateArn)
-    Value(FnGetAtt('RestApi','DistributionDomainName'))
-    Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-RestApiDomainName")
   }
 
   ApiGateway_Deployment(:RestApiDeployment) {
