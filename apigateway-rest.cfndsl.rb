@@ -111,7 +111,7 @@ CloudFormation do
   }
 
   Output(:RestEdgeApiDomainName) {
-    Condition(:HasRegionalCertificateArn)
+    Condition(:HasEdgeCertificateArn)
     Value(FnGetAtt('RestApi','DistributionDomainName'))
     Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-RestApiDomainName")
   }
