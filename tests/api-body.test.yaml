@@ -1,0 +1,10 @@
+test_metadata:
+  type: config
+  name: api-body
+  description: create a api from a OpenAPI spec
+
+test_parameters:
+  ListPostsFunction: arn:aws:lambda:us-east-2:123456789012:function:list-function
+  CreatePostFunction: arn:aws:lambda:us-east-2:123456789012:function:create-function
+
+api_body_file: tests/api_body_file.yaml
