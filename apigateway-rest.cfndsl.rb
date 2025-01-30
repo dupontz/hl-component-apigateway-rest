@@ -103,8 +103,7 @@ CloudFormation do
       Key: FnSub(body_s3_location['key'])
     }) unless body_s3_location.nil?
     EndpointConfiguration {
-      Types 
-        - REGIONAL
+      Types endpoint_configuration['types']
     } unless endpoint_configuration.empty?
     FailOnWarnings fail_on_warnings
     MinimumCompressionSize minimum_compression_size unless minimum_compression_size.nil?
