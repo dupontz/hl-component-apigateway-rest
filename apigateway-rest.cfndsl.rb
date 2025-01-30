@@ -27,10 +27,11 @@ CloudFormation do
   ApiGateway_DomainName(:CustomDomain) {
     Condition(:HasDomainName)
     # CertificateArn FnIf('HasEdgeCertificateArn', Ref(:EdgeCertificateArn), Ref('AWS::NoValue'))
-    DomainName FnSub("#{custom_dns_prefix}.${EnvironmentName}.${DnsDomain}")
+    # DomainName FnSub("#{custom_dns_prefix}.${EnvironmentName}.${DnsDomain}")
     EndpointConfiguration {
       Types endpoint_configuration['types']
     } unless endpoint_configuration.empty?
+    RegionalDomainName FnSub("#{custom_dns_prefix}.${EnvironmentName}.${DnsDomain}")
     RegionalCertificateArn FnIf('HasRegionalCertificateArn', Ref(:RegionalCertificateArn), Ref('AWS::NoValue'))
     SecurityPolicy security_policy
     Tags default_tags
